@@ -5,10 +5,10 @@ print("main.py est lancé")
 connection = None
 
 def connect_obd():
-    """Fonction pour établir la connexion avec l'adaptateur OBD-II."""
     global connection
     print("tentative de connexion...")
     try:
+        # chez moi: port com8
         connection = obd.OBD("COM8")
         print("Statut de la connexion :", connection.status())
         if connection.is_connected():
@@ -19,7 +19,6 @@ def connect_obd():
         print(f"Erreur lors de la tentative de connexion: {e}")
 
 def read_error_codes():
-    """Fonction pour lire les codes d'erreur."""
     global connection
     if connection and connection.is_connected():
         response = connection.query(obd.commands.GET_DTC)
@@ -32,7 +31,6 @@ def read_error_codes():
     else:
         print("Non connecté à l'adaptateur OBD-II.")
 
-# Boucle principale en attente de commandes
 while True:
     command = input("Entrez une commande (connect, read, quit) : ").strip().lower()
     if command == "quit":
